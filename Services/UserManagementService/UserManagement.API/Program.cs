@@ -10,6 +10,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 // Register AuthService in Application Layer
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGoogleAuthService, GoogleAuthService>();
+builder.Services.AddSingleton<IRefreshTokenService, RefreshTokenService>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

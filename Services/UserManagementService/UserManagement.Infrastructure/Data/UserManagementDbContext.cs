@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using UserManagement.Domain.Entities;
 
-public class UserManagementDbContext : DbContext
+public class UserManagementDbContext(DbContextOptions<UserManagementDbContext> options) : DbContext(options)
 {
-    public UserManagementDbContext(DbContextOptions<UserManagementDbContext> options) : base(options) { }
-
     public DbSet<User> Users { get; set; }
     public DbSet<UserProfile> UserProfiles { get; set; }
     public DbSet<Role> Roles { get; set; }

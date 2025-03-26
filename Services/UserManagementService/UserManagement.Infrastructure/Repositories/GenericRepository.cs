@@ -5,16 +5,10 @@ using UserManagement.Infrastructure.Repositories.IRepositories;
 
 namespace UserManagement.Infrastructure.Repositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T>(UserManagementDbContext context) : IGenericRepository<T> where T : class
 {
-    protected readonly UserManagementDbContext _context;
-    protected readonly DbSet<T> _dbSet;
-
-    public GenericRepository(UserManagementDbContext context)
-    {
-        _context = context;
-        _dbSet = context.Set<T>();
-    }
+    protected readonly UserManagementDbContext _context = context;
+    protected readonly DbSet<T> _dbSet = context.Set<T>();
 
     public async Task<T?> GetByIdAsync(Guid id) => await _dbSet.FindAsync(id);
     public async Task<IEnumerable<T>> GetAllAsync() => await _dbSet.ToListAsync();

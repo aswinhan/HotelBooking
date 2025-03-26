@@ -18,17 +18,21 @@ public static class ServiceRegistration
         services.AddDbContext<UserManagementDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        
+
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IHostPropertyRepository, HostPropertyRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
         services.AddSingleton<TokenService>();
-        
+
 
         var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
+        if (jwtSettings == null || string.IsNullOrEmpty(jwtSettings.Secret))
+        {
+            throw new ArgumentNullException(nameof(configuration), "JwtSettings or JwtSettings.Secret is not configured properly.");
+        }
         var key = Encoding.UTF8.GetBytes(jwtSettings.Secret);
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

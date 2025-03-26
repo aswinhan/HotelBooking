@@ -4,20 +4,15 @@ using Google.Apis.Auth;
 
 namespace UserManagement.Application.Services;
 
-public class GoogleAuthService : IGoogleAuthService
+public class GoogleAuthService(IConfiguration configuration) : IGoogleAuthService
 {
-    private readonly string _clientId;
-
-    public GoogleAuthService(IConfiguration configuration)
-    {
-        _clientId = configuration["GoogleAuthSettings:ClientId"] ?? throw new ArgumentNullException("Google Client ID is missing");
-    }
+    private readonly string _clientId = configuration["GoogleAuthSettings:ClientId"] ?? throw new ArgumentNullException("Google Client ID is missing");
 
     public async Task<GoogleUserInfo?> ValidateGoogleTokenAsync(string googleToken)
     {
         var settings = new GoogleJsonWebSignature.ValidationSettings
         {
-            Audience = new[] { _clientId }
+            Audience = [_clientId]
         };
 
         var payload = await GoogleJsonWebSignature.ValidateAsync(googleToken, settings);

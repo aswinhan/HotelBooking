@@ -12,6 +12,6 @@ public class User
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public UserProfile? Profile { get; set; }
-    public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+    public ICollection<UserRole> UserRoles { get; set; } = [];
     public ICollection<HostProperty>? HostProperties { get; set; }
 }

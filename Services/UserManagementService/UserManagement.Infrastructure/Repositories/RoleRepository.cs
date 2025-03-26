@@ -5,9 +5,7 @@ using UserManagement.Infrastructure.Repositories.IRepositories;
 
 namespace UserManagement.Infrastructure.Repositories;
 
-public class RoleRepository : GenericRepository<Role>, IRoleRepository
+public class RoleRepository(UserManagementDbContext context) : GenericRepository<Role>(context), IRoleRepository
 {
-    public RoleRepository(UserManagementDbContext context) : base(context) { }
-
     public async Task<Role?> GetByNameAsync(string roleName) => await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
 }
