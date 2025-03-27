@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static UserManagement.Application.DTOs.AuthDTO;
 using static UserManagement.Application.Services.AuthService;
 
 namespace UserManagement.Application.Interfaces;
@@ -16,4 +12,8 @@ public interface IAuthService
     Task<AuthResponse> LoginAsync(string email, string password);
     Task<AuthResponse> RefreshTokenAsync(string refreshToken);
     Task LogoutAsync(Guid userId);
+    Task RequestHostVerification(Guid userId, HostVerificationRequest request);
+    Task ApproveHost(Guid userId);
+    Task SendPasswordResetOtpAsync(ForgotPasswordRequest request);
+    Task ResetPasswordAsync(ResetPasswordRequest request);
 }

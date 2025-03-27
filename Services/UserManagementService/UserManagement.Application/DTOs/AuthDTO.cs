@@ -13,4 +13,7 @@ public class AuthDTO
     public record LoginRequest(string Email, string Password);
     public record RefreshTokenRequest(string RefreshToken);
     public record LogoutRequest(Guid UserId);
+    public record HostVerificationRequest(string GovernmentId, string BusinessLicense, string Address, string GeoLocation);
+    public record ForgotPasswordRequest(string Email);
+    public record ResetPasswordRequest(string Email, string Otp, string NewPassword);
 }

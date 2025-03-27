@@ -22,6 +22,8 @@ public static class ServiceRegistration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IHostPropertyRepository, HostPropertyRepository>();
+        services.AddScoped<IHostVerificationRepository, HostVerificationRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));

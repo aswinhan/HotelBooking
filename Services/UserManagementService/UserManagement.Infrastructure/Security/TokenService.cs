@@ -15,9 +15,13 @@ public class TokenService(IOptions<JwtSettings> jwtSettings)
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.Email, user.Email),
-            new("role", "User")
+            new(JwtRegisteredClaimNames.Email, user.Email)
         };
+        // Add role claims
+        foreach (var role in user.UserRoles.Select(ur => ur.Role.Name))
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
