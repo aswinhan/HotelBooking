@@ -20,6 +20,7 @@ public static class ServiceRegistration
 
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserProfileRepository, UserProfileRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IHostPropertyRepository, HostPropertyRepository>();
         services.AddScoped<IHostVerificationRepository, HostVerificationRepository>();

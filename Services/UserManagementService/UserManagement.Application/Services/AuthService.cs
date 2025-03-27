@@ -168,7 +168,7 @@ public class AuthService(IUserRepository userRepository, TokenService tokenServi
 
         var user = await _userRepository.GetByEmailAsync(request.Email) ?? throw new ArgumentException("User not found");
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
-        _userRepository.Update(user);
+        await _userRepository.UpdateAsync(user);
 
         _otpStore.TryRemove(request.Email, out _);
     }
